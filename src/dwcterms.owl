@@ -1,0 +1,198 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="https://raw.githubusercontent.com/BiodiversityOntologies/bco/master/src/ontology/dwcterms.owl#"
+     xml:base="https://raw.githubusercontent.com/BiodiversityOntologies/bco/master/src/ontology/dwcterms.owl"
+     xmlns:obo="http://purl.obolibrary.org/obo/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:dcterms="dcterms:">
+    <owl:Ontology rdf:about="https://raw.githubusercontent.com/BiodiversityOntologies/bco/master/src/ontology/dwcterms.owl"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- dcterms:description -->
+
+    <owl:AnnotationProperty rdf:about="dcterms:description"/>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000112 -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_0000112"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- DWC:AcceptedTaxon -->
+
+    <owl:DatatypeProperty rdf:about="DWC:AcceptedTaxon">
+        <rdfs:domain rdf:resource="http://rs.tdwg.org/dwc/terms/Taxon"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The currently valid (zoological) or accepted (botanical) name for the ScientificName.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://rs.tdwg.org/dwc/terms/</rdfs:isDefinedBy>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Accepted Taxon</rdfs:label>
+        <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#string">TRUE</owl:deprecated>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- DWC:AcceptedTaxonID -->
+
+    <owl:DatatypeProperty rdf:about="DWC:AcceptedTaxonID">
+        <rdfs:domain rdf:resource="http://rs.tdwg.org/dwc/terms/Taxon"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A global unique identifier for the parent to the AcceptedTaxon.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://rs.tdwg.org/dwc/terms/</rdfs:isDefinedBy>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Accepted Taxon ID</rdfs:label>
+        <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#string">TRUE</owl:deprecated>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- DWC:AccessConstraints -->
+
+    <owl:DatatypeProperty rdf:about="DWC:AccessConstraints">
+        <rdfs:domain rdf:resource="http://rs.tdwg.org/dwc/terms/Sample"/>
+        <dcterms:description rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Example: &quot;not-for-profit use only&quot;.</dcterms:description>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A description of constraints on the use of the data as shared or access to further data that is not shared.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://rs.tdwg.org/dwc/terms/</rdfs:isDefinedBy>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Access Constraints</rdfs:label>
+        <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#string">TRUE</owl:deprecated>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- DWC:acceptedNameUsage -->
+
+    <owl:DatatypeProperty rdf:about="DWC:acceptedNameUsage">
+        <rdfs:domain rdf:resource="http://rs.tdwg.org/dwc/terms/Taxon"/>
+        <obo:IAO_0000112 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">`Tamias minimus` (valid name for Eutamias minimus).</obo:IAO_0000112>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The full name, with authorship and date information if known, of the currently valid (zoological) or accepted (botanical) taxon.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://rs.tdwg.org/dwc/terms/</rdfs:isDefinedBy>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Accepted Name Usage</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- DWC:acceptedNameUsageID -->
+
+    <owl:DatatypeProperty rdf:about="DWC:acceptedNameUsageID">
+        <rdfs:domain rdf:resource="http://rs.tdwg.org/dwc/terms/Taxon"/>
+        <obo:IAO_0000112 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">`8fa58e08-08de-4ac1-b69c-1235340b7001`</obo:IAO_0000112>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An identifier for the name usage (documented meaning of the name according to a source) of the currently valid (zoological) or accepted (botanical) taxon.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://rs.tdwg.org/dwc/terms/</rdfs:isDefinedBy>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Accepted Name Usage ID</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- DWC:acceptedScientificName -->
+
+    <owl:DatatypeProperty rdf:about="DWC:acceptedScientificName">
+        <rdfs:domain rdf:resource="http://rs.tdwg.org/dwc/terms/Taxon"/>
+        <dcterms:description rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Example: &quot;Tamias minimus&quot; valid name for &quot;Eutamias minimus&quot;</dcterms:description>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The currently valid (zoological) or accepted (botanical) name for the scientificName.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://rs.tdwg.org/dwc/terms/</rdfs:isDefinedBy>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Accepted Scientific Name</rdfs:label>
+        <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#string">TRUE</owl:deprecated>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- DWC:acceptedScientificNameID -->
+
+    <owl:DatatypeProperty rdf:about="DWC:acceptedScientificNameID">
+        <rdfs:domain rdf:resource="http://rs.tdwg.org/dwc/terms/Taxon"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A unique identifier for the acceptedScientificName.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://rs.tdwg.org/dwc/terms/</rdfs:isDefinedBy>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Accepted Scientific Name ID</rdfs:label>
+        <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#string">TRUE</owl:deprecated>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- DWC:acceptedTaxonID -->
+
+    <owl:DatatypeProperty rdf:about="DWC:acceptedTaxonID">
+        <rdfs:domain rdf:resource="http://rs.tdwg.org/dwc/terms/Taxon"/>
+        <dcterms:description rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Example: &quot;8fa58e08-08de-4ac1-b69c-1235340b7001&quot;</dcterms:description>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An identifier for the name of the currently valid (zoological) or accepted (botanical) taxon. See acceptedTaxon.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://rs.tdwg.org/dwc/terms/</rdfs:isDefinedBy>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Accepted Taxon ID</rdfs:label>
+        <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#string">TRUE</owl:deprecated>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- DWC:acceptedTaxonName -->
+
+    <owl:DatatypeProperty rdf:about="DWC:acceptedTaxonName">
+        <rdfs:domain rdf:resource="http://rs.tdwg.org/dwc/terms/Taxon"/>
+        <dcterms:description rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Example: &quot;Tamias minimus&quot; valid name for &quot;Eutamias minimus&quot;</dcterms:description>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The currently valid (zoological) or accepted (botanical) name for the scientificName.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://rs.tdwg.org/dwc/terms/</rdfs:isDefinedBy>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Accepted Taxon Name</rdfs:label>
+        <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#string">TRUE</owl:deprecated>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- DWC:acceptedTaxonNameID -->
+
+    <owl:DatatypeProperty rdf:about="DWC:acceptedTaxonNameID">
+        <rdfs:domain rdf:resource="http://rs.tdwg.org/dwc/terms/Taxon"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A unique identifier for the acceptedTaxonName.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://rs.tdwg.org/dwc/terms/</rdfs:isDefinedBy>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Accepted Taxon Name ID</rdfs:label>
+        <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#string">TRUE</owl:deprecated>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://rs.tdwg.org/dwc/terms/Sample -->
+
+    <owl:Class rdf:about="http://rs.tdwg.org/dwc/terms/Sample"/>
+    
+
+
+    <!-- http://rs.tdwg.org/dwc/terms/Taxon -->
+
+    <owl:Class rdf:about="http://rs.tdwg.org/dwc/terms/Taxon"/>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.6) https://github.com/owlcs/owlapi -->
+
