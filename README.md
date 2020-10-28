@@ -36,7 +36,7 @@ So far only it has only been tested to work with terms.csv. Will test for iri.cs
 
 ``robot template --template dwcterms.csv \
   --prefix "dwc: http://rs.tdwg.org/dwc/terms/" \
-  --ontology-iri "http://purl.obolibrary.org/obo/bco/dwcterms.owl" \
+  --ontology-iri "http://purl.obolibrary.org/obo/bco/imports/dwcterms.owl" \
   --output ../dwcterms.owl
   ``
 
