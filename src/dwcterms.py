@@ -53,6 +53,7 @@ def main():
     """reformat the DwC terms file"""
 
     args = get_args()
+    outfile = args.outputfile
     
     infile = pandas.read_csv(args.inputfile)
     labels = pandas.read_csv(args.labels)
@@ -68,7 +69,10 @@ def main():
         IDlist.append(newid)
     #The True statement below overwrites the existing DF "new")
     new.insert(1, 'ID', IDlist, True)
-    new.to_csv('newtest.csv', index=False)
+    if outfile:
+        new.to_csv(outfile, index=False)
+    else:
+        new.to_csv('newtest.csv', index=False)
 
     print(f'new = {new}')
 
