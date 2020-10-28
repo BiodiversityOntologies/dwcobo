@@ -7,13 +7,13 @@ Purpose: Reformat a CSV file with Darwin Core terms into the format needed to co
 
 #Steps:
 #Load imports/terms.csv
-#Pull out column 2 (IDs) and concatenate 'dwc:' to each ID
-#Replace column 2 in file with concatenated values
 #Insert a term label row, as needed by ROBOT, as row 2 into the CSV file.
+#Concatenate 'DWC:' to each ID in column 2
+#Save output to a CSV file.
 #So far only tested to work with terms.csv. Will use iri.csv later.
 
 
-import argparse
+import argparse, os, pandas
 
 
 # --------------------------------------------------
@@ -24,32 +24,53 @@ def get_args():
         description='get command line arguments',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
-    parser.add_argument('inputfile',
-                        metavar='file',
-                        help='A positional argument for the input CSV file with terms',
-                        type=file)
+    parser.add_argument('-i',
+                        '--inputfile',
+                        metavar='string',
+                        help='input CSV file with terms',
+                        type=str,
+                        default='imports/terms.csv')
 
-    parser.add_argument('-f',
-                        '--file',
-                        help='The file containing the labels row',
-                        metavar='FILE',
-                        type=argparse.FileType('rt'),
-                        default='term_label_row.csv')
+    parser.add_argument('-l',
+                        '--labels',
+                        help='file containing the labels row',
+                        metavar='string',
+                        type=str,
+                        default='terms_label_row.csv')
+
+    parser.add_argument('-o',
+                        '--outputfile',
+                        help='modified output file',
+                        metavar='string',
+                        type=str,
+                        default='')
 
     return parser.parse_args()
 
 
 # --------------------------------------------------
 def main():
-    """Make a jazz noise here"""
+    """reformat the DwC terms file"""
 
     args = get_args()
-    file_arg = args.file
-    pos_arg = args.inputfile
+    
+    infile = pandas.read_csv(args.inputfile)
+    labels = pandas.read_csv(args.labels)
+    robotlabels = list(labels)
+    new = infile
+    new.loc[-1] = robotlabels
+    new.index = new.index + 1
+    new =  new.sort_index()
+    ID = new['term_localName']
+    IDlist = []
+    for id in ID:
+        newid = 'DWC:'+id
+        IDlist.append(newid)
+    #The True statement below overwrites the existing DF "new")
+    new.insert(1, 'ID', IDlist, True)
+    new.to_csv('newtest.csv', index=False)
 
-
-    print('file_arg = "{}"'.format(file_arg.name if file_arg else ''))
-     print(f'inputfile = "{pos_arg}"')
+    print(f'new = {new}')
 
 
 # --------------------------------------------------
