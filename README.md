@@ -42,6 +42,7 @@ So far only it has only been tested to work with terms.csv. Will test for iri.cs
 
 ## ToDo:
 
+- import `dwcterms.owl` into the BCO repo, so it can have a BCO PURL.
 - Write a makefile to automate this process. 
 - Update `/src/dwcterms.py` to work with either `terms.csv` or `iri.csv` or create `/src/dwciri.py` for `iri.csv`.
 - Write code that checks that the format of the input file has not changed, because `/src/terms_label_row.csv` is written specifically for the current (10/2020) version of `terms.csv`.
