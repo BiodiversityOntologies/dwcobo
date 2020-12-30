@@ -7,6 +7,11 @@ The [Darwin Core Standard](https://www.tdwg.org/standards/dwc/) (DwC) includes a
 2. With properties intended to be used with IRIs in the range, under the namespace https://raw.githubusercontent.com/tdwg/rs.tdwg.org/master/iri/
 
 
+## DwC for OBO ontologies
+The purpose of this repo is to create OWL versions of the two DwC RDF files described above, following OBO Foundry best practices and common methods. This will make it easier for anyone who wants to import DwC properties into their OBO ontology. 
+
+I will monitor DwC and update the ontologies here whenever there is a new releases of DwC.
+
 ## DwC in BCO
 
 The primary use case for DwC with the BCO is as a set of metadata properties to describe specimens, collecting events, and related entities. To do this, we create an OWL file from DwC, interpreting the properties in https://raw.githubusercontent.com/tdwg/rs.tdwg.org/master/terms/terms.csv as owl:data properties. We use the class groupings as 'owl:domain' for these properties.
@@ -42,7 +47,9 @@ So far only it has only been tested to work with terms.csv. Will test for iri.cs
 
 ## ToDo:
 
-- import `dwcterms.owl` into the BCO repo, so it can have a BCO PURL.
 - Write a makefile to automate this process. 
 - Update `/src/dwcterms.py` to work with either `terms.csv` or `iri.csv` or create `/src/dwciri.py` for `iri.csv`.
 - Write code that checks that the format of the input file has not changed, because `/src/terms_label_row.csv` is written specifically for the current (10/2020) version of `terms.csv`.
+- request an OBO purl for the DwC files.
+- write an script to automatically monitor DwC releases, if possible.
+- import `dwcterms.owl` into the BCO repo.
