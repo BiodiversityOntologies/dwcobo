@@ -1,7 +1,5 @@
 Contents:
 
-/imports: imported csv files from DwC repo (`terms.csv` and `iri.csv`, plus some testing files).
-
 dwcterms.owl: output OWL file of from `tersm.csv`, with DwC properties as data properties
 
 dwcterms.py: code for converting `terms.csv` to `dwcterms.csv`
