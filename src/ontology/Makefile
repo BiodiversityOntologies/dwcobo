@@ -10,7 +10,7 @@
 # these can be overwritten on the command line
 
 URIBASE=                    http://purl.obolibrary.org/obo
-ONT=                        dwcterms
+ONT=                        dwcobo
 ONTBASE=                    $(URIBASE)/$(ONT)
 EDIT_FORMAT=                owl
 CATALOG=                    catalog-v001.xml
@@ -45,103 +45,25 @@ all_main: $(MAIN_FILES)
 
 ## -- import targets --
 ##
-## By default this is the cross-product of IMPORT_MODULES x FORMATS
+## This imports the csv files from the DwC repo
 
-IMPORTS =  terms iri
-
-IMPORT_ROOTS = $(patsubst %, imports/%_import, $(IMPORTS))
-IMPORT_FILES = $(foreach n,$(IMPORT_ROOTS), $(foreach f,$(FORMATS), $(n).$(f)))
-IMPORT_OWL_FILES = $(foreach n,$(IMPORT_ROOTS), $(n).owl)
-
-all_imports: $(IMPORT_FILES)
-
-all_imports_owl: $(foreach n,$(IMPORT_ROOTS), $(n).owl)
-
-all_imports_obo: $(foreach n,$(IMPORT_ROOTS), $(n).obo)
+IMPORTS = \
+  wget https://raw.githubusercontent.com/tdwg/rs.tdwg.org/master/iri/iri.csv -O ../imports/iri.csv \
+  wget https://raw.githubusercontent.com/tdwg/rs.tdwg.org/master/terms/terms.csv -O ../imports/terms.csv 
 
 
-## -- subset targets --
-##
-## By default this is the cross-product of SUBSETS x FORMATS
-## Note we also include TSV as a format
-
-
-SUBSETS =
-
-SUBSET_ROOTS = $(patsubst %, subsets/%, $(SUBSETS))
-SUBSET_FILES = $(foreach n,$(SUBSET_ROOTS), $(foreach f,$(FORMATS_INCL_TSV), $(n).$(f)))
-
-all_subsets: $(SUBSET_FILES)
-
-## -- dosdp pattern targets --
-##
-
-# ## orginal ODK version
-# PATTERNS =
-#
-# PATTERN_ROOTS = $(patsubst %, $(PATTERNDIR)/%, $(PATTERNS))
-# PATTERN_FILES = $(foreach n,$(PATTERN_ROOTS), $(n).owl)
-#
-# all_patterns: $(PATTERN_FILES)
-
-
-## DOSDP pattern targets modivied from ENVO version
-MODS = chemical_concentration entity_attribute plant_part_concentration
-ALL_MODS_OWL = $(patsubst %, modules/%.owl, $(MODS))
-ALL_MODS_CSV = $(patsubst %, modules/%.csv, $(MODS))
-
-## Modules make targets modified from ENVO's version
-all_modules: all_modules_owl #all_modules_obo
-all_modules_owl: $(ALL_MODS_OWL)
-#all_modules_obo: $(patsubst %, modules/%.obo, $(MODS))
-
-modules/%.owl: ../modules/%.csv ../patterns/%.yaml curie_map.yaml
-	dosdp-tools --table-format=csv --template=../patterns/$*.yaml --outfile=../modules/$*.tmp.owl --obo-prefixes=true generate --infile=../modules/$*.csv
-	$(ROBOT) annotate --input ../modules/$*.tmp.owl -O http://purl.obolibrary.org/obo/srpdio/modules/$*.owl --output ../modules/$*.owl && rm ../modules/$*.tmp.owl
-
-# modules/%.obo: ../modules/%.owl
-# 	owltools $< -o -f obo ../$@.tmp && grep -v ^owl-axioms ../$@.tmp > ../$@
-
-## Merge module ontologies
-# see https://robot.obolibrary.org/merge
-merge_modules:
-	$(ROBOT) merge --input srpdio-edit.owl --input ../modules/chemical_concentration.owl --input ../modules/entity_attribute.owl --input ../modules/plant_part_concentration.owl --input imports/manual/manual_imports.owl --output srpdio-edit.owl
-	#--inputs "../modules/*.owl"
-
-
-## Merge module ontologies code modified from ENVO
-## This works but it's using owltools instead of ROBOT try redoing it with https://robot.obolibrary.org/merge
-# tmp_srpdio-edit.owl:
-# 	owltools ../modules/chemical_concentration.owl srpdio-edit.owl --merge-support-ontologies  -o tmp_srpdio-edit.owl
-
-## Run and merge module files
-## Run `./run.sh make prepare_modules` prior to running `./run.sh make prepare_release`
-prepare_modules: all_modules merge_modules
+all_imports: $(IMPORTS)
 
 
 
-## -- dosdp pattern targets -- # I think this is reports and the ODK header is wrong.
-##
+
+## -- reports --
 
 OBO_REPORT = $(SRC)-obo-report
 REPORTS = $(OBO_REPORT)
 REPORT_FILES = $(patsubst %, $(REPORTDIR)/%.tsv, $(REPORTS))
 
 all_reports: all_reports_onestep $(REPORT_FILES)
-
-## -- all files/assets --
-
-ASSETS = \
-  $(IMPORT_FILES) \
-  $(MAIN_FILES) \
-  $(REPORT_FILES) \
-  $(SUBSET_FILES)
-
-all_assets: $(ASSETS)
-
-show_assets:
-	echo $(ASSETS)
-	du -sh $(ASSETS)
 
 
 # ----------------------------------------
@@ -186,55 +108,6 @@ ANNOTATE_VERSION_IRI = annotate -V $(ONTBASE)/releases/$(TODAY)/$@.owl
 
 # by default we use ELK to perform a reason-relax-reduce chain
 # after that we annotate the ontology with the release versionInfo
-
-OTHER_SRC =
-
-
-$(ONTOLOGYTERMS): $(SRC) $(OTHER_SRC)
-	$(ROBOT) query --use-graphs true -f csv -i $< --query ../sparql/srpdio_terms.sparql $@
-
-
-
-
-
-
-
-
-# base: OTHER sources of interest, such as definitions owl
-$(ONT)-base.owl: $(SRC) $(OTHER_SRC)
-	$(ROBOT) remove --input $< --select imports --trim false \
-		merge $(patsubst %, -i %, $(OTHER_SRC)) \
-		annotate --annotation http://purl.org/dc/elements/1.1/type http://purl.obolibrary.org/obo/IAO_8000001 \
-		--ontology-iri $(ONTBASE)/$@ --version-iri $(ONTBASE)/releases/$(TODAY)/$@ \
-		--output $@.tmp.owl && mv $@.tmp.owl $@
-
-# Full: The full artefacts with imports merged, reasoned
-$(ONT)-full.owl: $(SRC) $(OTHER_SRC)
-	$(ROBOT) merge --input $< \
-		reason --reasoner ELK --equivalent-classes-allowed all --exclude-tautologies structural \
-		relax \
-		reduce -r ELK \
-		annotate --ontology-iri $(ONTBASE)/$@ --version-iri $(ONTBASE)/releases/$(TODAY)/$@ --output $@.tmp.owl && mv $@.tmp.owl $@
-
-
-
-# ----------------------------------------
-# Mirroring dwc source
-# ----------------------------------------
-#
-
-IMP=true # Global parameter to bypass import generation
-MIR=true # Global parameter to bypass mirror generation
-
-
-## ONTOLOGY: po
-## Copy of po is re-downloaded whenever source changes
-mirror/po.trigger: $(SRC)
-
-mirror/po.owl: mirror/po.trigger
-	@if [ $(MIR) = true ] && [ $(IMP) = true ]; then $(ROBOT) convert -I $(URIBASE)/po.owl -o $@.tmp.owl && mv $@.tmp.owl $@; fi
-
-.PRECIOUS: mirror/%.owl
 
 
 

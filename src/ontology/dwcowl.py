@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Author : Ramona L. Walls <rlwalls2008@gmail.com>
-Date   : 2020-09-23
+Date   : 2020-12-31
 Purpose: Reformat a CSV file with Darwin Core terms into the format needed to convert it to OWL.
 """
 

@@ -2,8 +2,8 @@ Contents:
 
 dwcterms.owl: output OWL file of from `tersm.csv`, with DwC properties as data properties
 
-dwcterms.py: code for converting `terms.csv` to `dwcterms.csv`
+dwcowl.py: code for converting `terms.csv` to `dwcterms.csv` OR `iri.csv` to `dwciri.csv`
 
-terms_header.csv: header row from `terms.csv`
+header.csv: header row from `terms.csv` and `iri.csv`. **They are currently the same. Could change.**
 
-terms_label_row.csv: row of ROBOT formatted column headers to insert into `terms.csv`
+label_row.csv: row of ROBOT formatted column headers to insert into `terms.csv` and `iri.csv`. **They are currently the same. Could change.**
