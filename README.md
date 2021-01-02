@@ -1,5 +1,8 @@
 # Creating Darwin Core OWL files for OBO Foundry ontologies
 
+### Licensce
+The intention is to make this repo CC0, however, I am waiting for clarification of the DwC license.
+
 ## Darwin Core background
 The [Darwin Core Standard](https://www.tdwg.org/standards/dwc/) (DwC) includes a glossary of terms intended to facilitate the sharing of information about biological diversity by providing identifiers, labels, and definitions. Darwin Core is primarily based on taxa, their occurrence in nature as documented by observations, specimens, samples, and related information. The bulk of terms in DwC are properties, with a handful of classes that are used to group the properties. DwC does not specify any formal relations between its properties and classe DwC is available as RDF in two forms: 
 
