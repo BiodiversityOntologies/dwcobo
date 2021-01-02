@@ -57,6 +57,7 @@ def main():
     
     infile = pandas.read_csv(args.inputfile)
     labels = pandas.read_csv(args.labels)
+    #need to fix dcterms:description property
     rlabels = list(labels)
     robotlabels = list()
     for x in rlabels:
@@ -72,6 +73,7 @@ def main():
     new.insert(1, 'ID', IDlist, True)
     new.drop(columns = ['term_localName'], inplace=True)
     new.rename(columns = {'ID': 'term_localName'}, inplace=True)
+    #need to rewrite type for properties to owl:Datatype
     new.loc[-1] = robotlabels
     new.index = new.index + 1
     new =  new.sort_index()
