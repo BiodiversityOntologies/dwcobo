@@ -6,14 +6,14 @@ Purpose: Reformat a CSV file with Darwin Core terms into the format needed to co
 """
 
 #Steps:
-#Load imports/terms.csv
+#Load ../imports/terms.csv or ../imports/iri.csv
 #Insert a term label row, as needed by ROBOT, as row 2 into the CSV file.
 #Concatenate 'DWC:' to each ID in column 2
 #Save output to a CSV file.
-#So far only tested to work with terms.csv. Will use iri.csv later.
+#By default, converts terms.csv to dwcterms.csv. To convert iri.csv to dwciri.csv, just specify the input and output.
 
 
-import argparse, os, pandas
+import argparse, os, pandas, re
 
 
 # --------------------------------------------------
@@ -29,39 +29,40 @@ def get_args():
                         metavar='string',
                         help='input CSV file with terms',
                         type=str,
-                        default='imports/terms.csv')
+                        default='../imports/terms.csv')
 
     parser.add_argument('-l',
                         '--labels',
-                        help='file containing the labels row',
+                        help='file containing the label row for robot',
                         metavar='string',
                         type=str,
-                        default='terms_label_row.csv')
+                        default='label_row.csv')
 
     parser.add_argument('-o',
                         '--outputfile',
                         help='modified output file',
                         metavar='string',
                         type=str,
-                        default='')
+                        default='dwcterms.csv')
 
     return parser.parse_args()
 
 
 # --------------------------------------------------
 def main():
-    """reformat the DwC terms file"""
+    """reformat the DwC terms or iri file"""
 
     args = get_args()
     outfile = args.outputfile
     
     infile = pandas.read_csv(args.inputfile)
     labels = pandas.read_csv(args.labels)
-    robotlabels = list(labels)
+    rlabels = list(labels)
+    robotlabels = list()
+    for x in rlabels:
+        y = re.sub('Unnamed: [0-9]+', '', x)
+        robotlabels.append(y)
     new = infile
-    new.loc[-1] = robotlabels
-    new.index = new.index + 1
-    new =  new.sort_index()
     ID = new['term_localName']
     IDlist = []
     for id in ID:
@@ -69,10 +70,12 @@ def main():
         IDlist.append(newid)
     #The True statement below overwrites the existing DF "new")
     new.insert(1, 'ID', IDlist, True)
-    if outfile:
-        new.to_csv(outfile, index=False)
-    else:
-        new.to_csv('newtest.csv', index=False)
+    new.drop(columns = ['term_localName'], inplace=True)
+    new.rename(columns = {'ID': 'term_localName'}, inplace=True)
+    new.loc[-1] = robotlabels
+    new.index = new.index + 1
+    new =  new.sort_index()
+    new.to_csv(outfile, index=False)
 
     print(f'new = {new}')
 
