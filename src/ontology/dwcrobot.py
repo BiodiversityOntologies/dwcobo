@@ -7,8 +7,9 @@ Purpose: Reformat a CSV file with Darwin Core terms into the format needed to co
 
 #Steps:
 #Load ../imports/terms.csv or ../imports/iri.csv
-#Insert a term label row, as needed by ROBOT, as row 2 into the CSV file.
 #Concatenate 'DWC:' to each ID in column 2
+#Change the "rfd-type" column to the appropriate OWL type
+#Insert a term label row, as needed by ROBOT, as row 2 into the CSV file.
 #Save output to a CSV file.
 #By default, converts terms.csv to dwcterms.csv. To convert iri.csv to dwciri.csv, just specify the input and output.
 
@@ -76,7 +77,8 @@ def main():
     new.rename(columns = {'ID': 'term_localName'}, inplace=True)
     #replace rdf_type column with robot formatted TYPE column, using owl:DataProperty or owl:ObjectProperty. 
     #The rdf type for class is interpretted correctly already.
-    #Need to check on the type for DwCType, which is http://purl.org/dc/dcam/VocabularyEncodingScheme.
+    #The type for DwCType is http://purl.org/dc/dcam/VocabularyEncodingScheme. This is interpretted as an individual.
+    #However, since DwCType is deprecated, I will ignore it for now.
     if args.inputfile == '../imports/terms.csv':
         type = 'owl:DataProperty'
     else:
