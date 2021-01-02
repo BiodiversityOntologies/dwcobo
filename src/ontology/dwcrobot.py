@@ -2,7 +2,7 @@
 """
 Author : Ramona L. Walls <rlwalls2008@gmail.com>
 Date   : 2020-12-31
-Purpose: Reformat a CSV file with Darwin Core terms into the format needed to convert it to OWL.
+Purpose: Reformat a CSV file with Darwin Core terms into the format needed to convert it to OWL using ROBOT.
 """
 
 #Steps:
@@ -54,16 +54,17 @@ def main():
 
     args = get_args()
     outfile = args.outputfile
-    
     infile = pandas.read_csv(args.inputfile)
     labels = pandas.read_csv(args.labels)
     #need to fix dcterms:description property
     rlabels = list(labels)
     robotlabels = list()
+    #get rid of "Unnamed:" column headers created by pandas
     for x in rlabels:
         y = re.sub('Unnamed: [0-9]+', '', x)
         robotlabels.append(y)
     new = infile
+    #replace term_localName column with robot formatted ID column
     ID = new['term_localName']
     IDlist = []
     for id in ID:
@@ -73,13 +74,25 @@ def main():
     new.insert(1, 'ID', IDlist, True)
     new.drop(columns = ['term_localName'], inplace=True)
     new.rename(columns = {'ID': 'term_localName'}, inplace=True)
-    #need to rewrite type for properties to owl:Datatype
+    #replace rdf_type column with robot formatted TYPE column, using owl:DataProperty or owl:ObjectProperty. 
+    #The rdf type for class is interpretted correctly already.
+    #Need to check on the type for DwCType, which is http://purl.org/dc/dcam/VocabularyEncodingScheme.
+    if args.inputfile == '../imports/terms.csv':
+        type = 'owl:DataProperty'
+    else:
+        type = 'owl:ObjectProperty'
+    tp = new['rdf_type']
+    tplist = []
+    for t in tp:
+        z = re.sub('http://www.w3.org/1999/02/22-rdf-syntax-ns#Property', type, t)
+        tplist.append(z)
+    new.insert(13, 'Type', tplist, True)
+    new.drop(columns = ['rdf_type'], inplace=True)
+    #Insert the second row of robot labels and fix the index
     new.loc[-1] = robotlabels
     new.index = new.index + 1
     new =  new.sort_index()
     new.to_csv(outfile, index=False)
-
-    print(f'new = {new}')
 
 
 # --------------------------------------------------
