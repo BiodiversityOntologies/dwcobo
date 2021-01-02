@@ -26,6 +26,8 @@ Download the latest versions of https://raw.githubusercontent.com/tdwg/rs.tdwg.o
 
 **TODO:** Add command to makefile to automatically check for new versions of source files and import them if needed.
 
+
+
 ### Modify the DwC terms file to work with Robot
 
 See `/src/ontology/dwcrobot.py`
@@ -52,3 +54,11 @@ For iri.csv:
 `robot template --template dwciri.csv --prefix "dwc: http://rs.tdwg.org/dwc/iri/" --ontology-iri "http://purl.obolibrary.org/obo/dwcobo-iri.owl" --output dwcobo-iri.owl`
 
 **TODO:** Add this to the makefile
+
+## Ontology release process
+
+**Still needs to be done**
+
+A new release will be made whenever DwC is updated.
+
+Release files will live in the root directory, with OBO Foundry PURLs of the form `http://purl.obolibrary.org/obo/dwcobo-terms.owl` and `http://purl.obolibrary.org/obo/dwcobo-iri.owl`, if approved.
