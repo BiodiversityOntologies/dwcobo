@@ -39,10 +39,7 @@ So far only it has only been tested to work with terms.csv. Will test for iri.cs
 
 ### Run Robot to create OWL file
 
-``robot template --template dwcterms.csv \
-  --prefix "dwc: http://rs.tdwg.org/dwc/terms/" \
-  --ontology-iri "http://purl.obolibrary.org/obo/bco/imports/dwcterms.owl" \
-  --output ../dwcterms.owl
+``robot template --template dwcterms.csv --prefix "dwc: http://rs.tdwg.org/dwc/terms/" --ontology-iri "http://purl.obolibrary.org/obo/dwcobo/dwcterms.owl" --output dwcterms.owl
   ``
 
 ## ToDo:
