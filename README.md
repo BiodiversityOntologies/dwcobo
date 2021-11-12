@@ -25,7 +25,7 @@ In the future, BCO may create another import file that uses DwC as object proper
 
 ### Import DwC files
 
-Download the latest versions of https://raw.githubusercontent.com/tdwg/rs.tdwg.org/master/terms/terms.csv and https://raw.githubusercontent.com/tdwg/rs.tdwg.org/master/iri/iri.csv and store in /src/ontology/imports
+Download the latest versions of https://raw.githubusercontent.com/tdwg/rs.tdwg.org/master/terms/terms.csv and https://raw.githubusercontent.com/tdwg/rs.tdwg.org/master/iri/iri.csv and store in /src/ontology/
 
 **TODO:** Add command to makefile to automatically check for new versions of source files and import them if needed.
 
