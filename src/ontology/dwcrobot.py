@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """
 Author : Ramona L. Walls <rlwalls2008@gmail.com>
-Date   : 2020-12-31
+Date   : 2021-14-31
 Purpose: Reformat a CSV file with Darwin Core terms into the format needed to convert it to OWL using ROBOT.
 """
 
 #Steps:
-#Load ../imports/terms.csv or ../imports/iri.csv
+#Load mirror/terms.csv or mirror/iri.csv
 #Concatenate 'DWC:' to each ID in column 2
 #Change the "rfd-type" column to the appropriate OWL type
 #Insert a term label row, as needed by ROBOT, as row 2 into the CSV file.
@@ -30,7 +30,7 @@ def get_args():
                         metavar='string',
                         help='input CSV file with terms',
                         type=str,
-                        default='../imports/terms.csv')
+                        default='mirror/terms.csv')
 
     parser.add_argument('-l',
                         '--labels',
@@ -79,7 +79,7 @@ def main():
     #The rdf type for class is interpretted correctly already.
     #The type for DwCType is http://purl.org/dc/dcam/VocabularyEncodingScheme. This is interpretted as an individual.
     #However, since DwCType is deprecated, I will ignore it for now.
-    if args.inputfile == '../imports/terms.csv':
+    if args.inputfile == 'mirrors/terms.csv':
         type = 'owl:DataProperty'
     else:
         type = 'owl:ObjectProperty'
