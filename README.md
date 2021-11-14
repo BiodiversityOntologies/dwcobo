@@ -1,5 +1,8 @@
 # Creating Darwin Core OWL files for OBO Foundry ontologies
 
+# DO NOT USE 
+This repo is now obsolete, and the code for creating DwC imports has moved into the [main BCO repo](https://github.com/BiodiversityOntologies/bco).
+
 ### Licensce
 The intention is to make this repo CC0, however, I am waiting for clarification of the DwC license.
 
